@@ -1,4 +1,6 @@
-export const aiModelsOptions: any[] = [
+import type { Option } from '../types.ts';
+
+export const aiModelsOptions: Option[] = [
   {
     code: 'llama3',
     name: 'Llama 3 (Ollama)',

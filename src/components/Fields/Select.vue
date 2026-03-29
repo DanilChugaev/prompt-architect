@@ -22,13 +22,14 @@
 import Select from 'primevue/select';
 
 import Label from './Label.vue';
+import type { Option } from '../../types.ts';
 
 const model = defineModel();
 
 defineProps<{
   id: string;
   label: string;
-  options: any[]; // todo добавить тип
+  options: Option[]; // todo добавить тип
   placeholder?: string;
   description?: string;
 }>();

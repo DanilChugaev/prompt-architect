@@ -1,15 +1,11 @@
 <template>
   <div class="column">
-    <Label :label :required />
+    <Label :label />
 
-    <div v-for="gender in options" :key="gender.value" class="row">
-      <Checkbox
-        v-model="model"
-        :input-id="gender.value"
-        :value="gender.value"
-      />
+    <div v-for="item in options" :key="item.code" class="row">
+      <Checkbox v-model="model" :input-id="item.code" :value="item.code" />
 
-      <Label :id="gender.value" :label="gender.label" />
+      <Label :id="item.name" :label="item.name" />
     </div>
 
     <span class="info">{{ description }}</span>
@@ -19,14 +15,13 @@
 <script setup lang="ts">
 import Checkbox from 'primevue/checkbox';
 import Label from './Label.vue';
-import type { LabelValuePair } from '../../types.ts';
+import type { Option } from '../../types.ts';
 
 const model = defineModel<string[]>();
 
 defineProps<{
   label: string;
-  options: LabelValuePair[];
-  required?: boolean;
+  options: Option[];
   placeholder?: string;
   description?: string;
 }>();

@@ -1,12 +1,14 @@
-export const opsOptions = [
+import type { Option } from '../../types.ts';
+
+export const opsOptions: Option[] = [
   {
     code: 'bash',
     name: 'Bash',
     rules:
       "Всегда проверяй exit codes ($?). Используй 'set -euo pipefail'. Избегай незащищенных переменных.",
     tools: [
-      { code: 'shellcheck', name: 'ShellCheck' },
-      { code: 'shfmt', name: 'shfmt' },
+      { code: 'shellcheck', name: 'ShellCheck', rules: '' },
+      { code: 'shfmt', name: 'shfmt', rules: '' },
     ],
   },
   {
@@ -15,9 +17,9 @@ export const opsOptions = [
     rules:
       'Строго соблюдай отступы. Используй лучшие практики безопасности (не хардкодь секреты).',
     tools: [
-      { code: 'yamllint', name: 'yamllint' },
-      { code: 'kubeval', name: 'kubeval (K8s)' },
-      { code: 'ansible-lint', name: 'ansible-lint' },
+      { code: 'yamllint', name: 'yamllint', rules: '' },
+      { code: 'kubeval', name: 'kubeval (K8s)', rules: '' },
+      { code: 'ansible-lint', name: 'ansible-lint', rules: '' },
     ],
   },
   {
@@ -25,6 +27,6 @@ export const opsOptions = [
     name: 'SQL',
     rules:
       'Оптимизируй запросы (используй EXPLAIN). Избегай SQL-инъекций (используй плейсхолдеры).',
-    tools: [{ code: 'sqlfluff', name: 'SQLFluff' }],
+    tools: [{ code: 'sqlfluff', name: 'SQLFluff', rules: '' }],
   },
 ];

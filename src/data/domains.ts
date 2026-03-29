@@ -1,4 +1,6 @@
-export const domainsOptions: any[] = [
+import type { Option } from '../types.ts';
+
+export const domainsOptions: Option[] = [
   {
     code: 'dev',
     name: 'Программирование',

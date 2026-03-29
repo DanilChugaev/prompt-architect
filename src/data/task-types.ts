@@ -1,4 +1,6 @@
-export const taskTypesOptions = [
+import type { Option } from '../types.ts';
+
+export const taskTypesOptions: Option[] = [
   {
     code: 'write',
     name: 'Написать код/скрипт с нуля',

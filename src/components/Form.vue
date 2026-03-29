@@ -12,7 +12,7 @@
       id="domain"
       label="Сфера деятельности:"
       :options="domainsOptions"
-      @update:model-value="language = {}"
+      @update:model-value="language = { code: '', name: '', rules: '' }"
     />
 
     <Select
@@ -61,21 +61,34 @@ import { domainsOptions } from '../data/domains.ts';
 import { languages } from '../data/languages';
 import { taskTypesOptions } from '../data/task-types.ts';
 import Text from './Fields/Text.vue';
+import type { Option } from '../types.ts';
 
 const model = defineModel({ default: '' });
 
-const aiModel = useStorage<Record<string, any>>('ai-model', {});
-const domain = useStorage<Record<string, any>>('domain', {});
-const language = useStorage<Record<string, any>>('language', {});
-const taskType = useStorage<Record<string, any>>('task-type', {});
+const aiModel = useStorage<Option>('ai-model', {
+  code: '',
+  name: '',
+  rules: '',
+});
+const domain = useStorage<Option>('domain', { code: '', name: '', rules: '' });
+const language = useStorage<Option>('language', {
+  code: '',
+  name: '',
+  rules: '',
+});
+const taskType = useStorage<Option>('task-type', {
+  code: '',
+  name: '',
+  rules: '',
+});
 const additionalRequirements = useStorage<string>(
   'additional-requirements',
   '',
 );
 const inputData = useStorage<string>('input-data', '');
 
-const languagesOptions = computed(
-  () => domain.value.code && languages[domain.value.code],
+const languagesOptions = computed<Option[]>(
+  () => languages[domain.value.code] ?? [],
 );
 
 const roleStr = computed(() => {
@@ -125,15 +138,15 @@ const outputFormatStr = computed(() => {
 });
 
 async function createPrompt() {
-  let promot = '';
+  let prompt = '';
 
-  promot += roleStr.value;
-  promot += contextStr.value;
-  promot += taskStr.value;
-  promot += inputDataStr.value;
-  promot += outputFormatStr.value;
+  prompt += roleStr.value;
+  prompt += contextStr.value;
+  prompt += taskStr.value;
+  prompt += inputDataStr.value;
+  prompt += outputFormatStr.value;
 
-  model.value = promot;
+  model.value = prompt;
 }
 </script>
 
