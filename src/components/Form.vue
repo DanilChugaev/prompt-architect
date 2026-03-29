@@ -19,7 +19,7 @@
       v-model="language"
       id="language"
       label="Технология:"
-      :options="languagesOptions"
+      :options="techOptions"
     />
 
     <Select
@@ -58,7 +58,7 @@ import Select from './Fields/Select.vue';
 
 import { aiModelsOptions } from '../data/ai-models.ts';
 import { domainsOptions, type DomainType } from '../data/domains.ts';
-import { languages } from '../data/languages';
+import { tech } from '../data/tech';
 import { taskTypesOptions } from '../data/task-types.ts';
 import Text from './Fields/Text.vue';
 import type { Option } from '../types.ts';
@@ -81,8 +81,8 @@ const additionalRequirements = useStorage<string>(
 );
 const inputData = useStorage<string>('input-data', '');
 
-const languagesOptions = computed<Option[]>(
-  () => languages[domain.value.code as DomainType] ?? [],
+const techOptions = computed<Option[]>(
+  () => tech[domain.value.code as DomainType] ?? [],
 );
 
 const roleStr = computed(() => {
@@ -100,7 +100,7 @@ const domainStr = computed(() => {
 
   return `Сфера: ${domain.value.rules}\n`;
 });
-const languageStr = computed(() => {
+const techtr = computed(() => {
   if (!language.value.code) return '';
 
   let data = `Язык: ${language.value.name}\n`;
@@ -109,11 +109,11 @@ const languageStr = computed(() => {
   return data;
 });
 const contextStr = computed(() => {
-  if (!domainStr.value && !languageStr.value) return '';
+  if (!domainStr.value && !techtr.value) return '';
 
   let data = `# CONTEXT\n`;
   data += domainStr.value;
-  data += languageStr.value;
+  data += techtr.value;
 
   data += '\n';
 
