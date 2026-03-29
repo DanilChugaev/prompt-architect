@@ -1,12 +1,27 @@
 import type { Option } from '../../types.ts';
 
 export const devOptions: Option[] = [
+  // todo: добавить взаимоисключение, например, выбран js - снимаем ts и наоборот
   {
     code: 'js',
     name: 'JavaScript (Vanilla/Node)',
     rules: `
       - Используй ES6+ синтаксис (const/let, arrow functions).
       - Модульная система (ESM).`,
+    tools: [
+      { code: 'jest', name: 'Jest', rules: '' },
+      { code: 'mocha', name: 'Mocha + Chai', rules: '' },
+      { code: 'vitest', name: 'Vitest', rules: '' },
+    ],
+  },
+  {
+    code: 'ts',
+    name: 'Typescript',
+    rules: `
+      - Используй ES6+ синтаксис (const/let, arrow functions).
+      - Модульная система (ESM).
+      - Включи строгую типизацию.
+      - Избегай 'any'.`,
     tools: [
       { code: 'jest', name: 'Jest', rules: '' },
       { code: 'mocha', name: 'Mocha + Chai', rules: '' },

@@ -44,7 +44,7 @@ const model = defineModel();
 defineProps<{
   id: string;
   label: string;
-  options: Option[]; // todo добавить тип
+  options: Option[];
   placeholder?: string;
   description?: string;
   multiple?: boolean;
