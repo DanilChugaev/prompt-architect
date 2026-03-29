@@ -1,0 +1,41 @@
+<template>
+  <div class="column">
+    <Label :id :label />
+
+    <Select
+        v-model="model"
+        :options
+        :placeholder
+        filter
+        filter-placeholder="Поиск"
+        show-clear
+        optionLabel="name"
+        :input-id="id"
+        class="w-full"
+    />
+
+    <span class="info">{{description}}</span>
+  </div>
+</template>
+
+<script setup lang="ts">
+import Select from 'primevue/select';
+
+import Label from './Label.vue';
+
+const model = defineModel();
+
+defineProps<{
+  id: string;
+  label: string;
+  options: any[]; // todo добавить тип
+  placeholder?: string;
+  description?: string;
+}>();
+</script>
+
+<style>
+.p-tree-node-toggle-button {
+  display: none !important;
+}
+</style>

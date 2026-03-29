@@ -1,0 +1,87 @@
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+    margin: 20px;
+
+    @media (max-width: 499px) {
+        font-size: 2rem;
+    }
+}
+
+a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
+}
+
+a:hover {
+    color: #535bf2;
+}
+
+ul {
+    padding: 4px;
+    margin: 0;
+
+    li {
+        text-align: left;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.label {
+    width: 100%;
+    cursor: pointer;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.row,
+.column {
+    display: flex;
+
+    .label {
+        text-align: left;
+    }
+}
+
+.column {
+    gap: 4px;
+}
+
+.row {
+    align-items: center;
+    gap: 20px;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.items-start {
+
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.required {
+    color: red;
+}
+
+.info {
+    text-align: left;
+    font-size: 0.8rem;
+    color: grey;
+}
