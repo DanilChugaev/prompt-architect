@@ -35,6 +35,8 @@ import { ref } from 'vue';
 const { copy } = useClipboard(); // todo после копирования добавить нотифай что успешно скопировал
 
 const prompt = ref('');
+// todo добавить ночную и светлые темы
+// todo переработать отступы
 </script>
 
 <style lang="postcss">

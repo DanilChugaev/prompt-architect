@@ -1,5 +1,6 @@
 import type { Option } from '../types.ts';
 
+// todo добавить больше моделей
 export const aiModelsOptions: Option[] = [
   {
     code: 'llama3',
