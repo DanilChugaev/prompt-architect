@@ -18,7 +18,7 @@
     <Select
       v-model="language"
       id="language"
-      label="Язык / Технология:"
+      label="Технология:"
       :options="languagesOptions"
     />
 
@@ -45,12 +45,12 @@
       type="textarea"
     />
 
-    <Button @click="createPrompt">Создать промпт</Button>
+    <Button @click="clearPrompt">Очистить форму</Button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { useStorage } from '@vueuse/core';
 import Button from 'primevue/button';
 
@@ -65,22 +65,16 @@ import type { Option } from '../types.ts';
 
 const model = defineModel({ default: '' });
 
-const aiModel = useStorage<Option>('ai-model', {
+const defaultOption = {
   code: '',
   name: '',
   rules: '',
-});
-const domain = useStorage<Option>('domain', { code: '', name: '', rules: '' });
-const language = useStorage<Option>('language', {
-  code: '',
-  name: '',
-  rules: '',
-});
-const taskType = useStorage<Option>('task-type', {
-  code: '',
-  name: '',
-  rules: '',
-});
+};
+
+const aiModel = useStorage<Option>('ai-model', defaultOption);
+const domain = useStorage<Option>('domain', defaultOption);
+const language = useStorage<Option>('language', defaultOption);
+const taskType = useStorage<Option>('task-type', defaultOption);
 const additionalRequirements = useStorage<string>(
   'additional-requirements',
   '',
@@ -92,32 +86,64 @@ const languagesOptions = computed<Option[]>(
 );
 
 const roleStr = computed(() => {
-  let data = `### ROLE\n`;
+  if (!aiModel.value.code) return '';
+
+  let data = `# ROLE\n`;
   data += aiModel.value.rules;
   data += '\n';
   data += '\n';
 
   return data;
 });
-const contextStr = computed(() => {
-  let data = `### CONTEXT\n`;
-  data += `Сфера: ${domain.value.rules}\n`;
-  data += `Технология: ${language.value.name}\n`;
+const domainStr = computed(() => {
+  if (!domain.value.code) return '';
+
+  return `Сфера: ${domain.value.rules}\n`;
+});
+const languageStr = computed(() => {
+  if (!language.value.code) return '';
+
+  let data = `Язык: ${language.value.name}\n`;
   data += `Правила кода: ${language.value.rules}\n`;
+
+  return data;
+});
+const contextStr = computed(() => {
+  if (!domainStr.value && !languageStr.value) return '';
+
+  let data = `# CONTEXT\n`;
+  data += domainStr.value;
+  data += languageStr.value;
+
   data += '\n';
 
   return data;
 });
+const additionalRequirementsStr = computed(() => {
+  if (!additionalRequirements.value) return '';
+
+  return `Дополнительные требования по задаче: ${additionalRequirements.value}\n`;
+});
 const taskStr = computed(() => {
-  let data = `### TASK\n`;
+  if (!taskType.value.code && !additionalRequirementsStr.value) return '';
+
+  let data = `# TASK\n`;
+
   data += taskType.value.rules;
-  data += `Дополнительные требования: ${additionalRequirements.value}\n`;
+
+  if (taskType.value.code) {
+    data += '\n';
+  }
+
+  data += additionalRequirementsStr.value;
   data += '\n';
 
   return data;
 });
 const inputDataStr = computed(() => {
-  let data = `### INPUT DATA\n`;
+  if (!inputData.value) return '';
+
+  let data = `# INPUT DATA\n`;
   data += inputData.value;
   data += '\n';
   data += '\n';
@@ -125,7 +151,7 @@ const inputDataStr = computed(() => {
   return data;
 });
 const outputFormatStr = computed(() => {
-  let data = `### OUTPUT FORMAT\n`;
+  let data = `# OUTPUT FORMAT\n`; // todo сделать в виде списка для выбора нужного формата вывода
   data += `- Предоставь решение в виде блока кода (Markdown).\n`;
   data += `- Если код сложный, добавь краткие комментарии.`; // todo добавить уровень сложности объяснений
 
@@ -137,7 +163,7 @@ const outputFormatStr = computed(() => {
   return data;
 });
 
-async function createPrompt() {
+const prompt = computed(() => {
   let prompt = '';
 
   prompt += roleStr.value;
@@ -146,8 +172,21 @@ async function createPrompt() {
   prompt += inputDataStr.value;
   prompt += outputFormatStr.value;
 
-  model.value = prompt;
+  return prompt;
+});
+
+function clearPrompt() {
+  aiModel.value = defaultOption;
+  domain.value = defaultOption;
+  language.value = defaultOption;
+  taskType.value = defaultOption;
+  additionalRequirements.value = '';
+  inputData.value = '';
 }
+
+watchEffect(() => {
+  model.value = prompt.value;
+});
 </script>
 
 <style scoped lang="postcss">

@@ -24,15 +24,17 @@
 </template>
 
 <script setup lang="ts">
-import { useClipboard, useStorage } from '@vueuse/core';
+import { useClipboard } from '@vueuse/core';
 import Toast from 'primevue/toast';
 import Button from 'primevue/button';
 
 import Form from './components/Form.vue';
 import Text from './components/Fields/Text.vue';
+import { ref } from 'vue';
 
-const prompt = useStorage<string>('prompt', '');
 const { copy } = useClipboard(); // todo после копирования добавить нотифай что успешно скопировал
+
+const prompt = ref('');
 </script>
 
 <style lang="postcss">
