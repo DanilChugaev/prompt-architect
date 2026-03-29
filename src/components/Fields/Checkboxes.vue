@@ -5,7 +5,7 @@
     <div v-for="item in options" :key="item.code" class="row">
       <Checkbox v-model="model" :input-id="item.code" :value="item.code" />
 
-      <Label :id="item.name" :label="item.name" />
+      <Label :id="item.code" :label="item.name" />
     </div>
 
     <span class="info">{{ description }}</span>

@@ -3,7 +3,7 @@ import { devOptions } from './dev-options.ts';
 import type { Option } from '../../types.ts';
 import type { DomainType } from '../domains.ts';
 
-export const tech: Record<DomainType, Option[]> = {
+export const technologies: Record<DomainType, Option[]> = {
   dev: devOptions,
   ops: opsOptions,
 };

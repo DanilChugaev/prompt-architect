@@ -12,14 +12,15 @@
       id="domain"
       label="Сфера деятельности:"
       :options="domainsOptions"
-      @update:model-value="language = { code: '', name: '', rules: '' }"
+      @update:model-value="technology = []"
     />
 
     <Select
-      v-model="language"
-      id="language"
-      label="Технология:"
+      v-model="technology"
+      id="technology"
+      label="Технологии:"
       :options="techOptions"
+      multiple
     />
 
     <Select
@@ -28,6 +29,15 @@
       label="Тип задачи:"
       :options="taskTypesOptions"
     />
+
+    <Checkboxes
+      v-if="toolsOptions.length"
+      v-model="tools"
+      label="Инструменты:"
+      :options="toolsOptions"
+    />
+
+    {{ tools }}
 
     <Text
       v-model="additionalRequirements"
@@ -55,12 +65,13 @@ import { useStorage } from '@vueuse/core';
 import Button from 'primevue/button';
 
 import Select from './Fields/Select.vue';
+import Text from './Fields/Text.vue';
+import Checkboxes from './Fields/Checkboxes.vue';
 
 import { aiModelsOptions } from '../data/ai-models.ts';
 import { domainsOptions, type DomainType } from '../data/domains.ts';
-import { tech } from '../data/tech';
+import { technologies } from '../data/technologies/index.ts';
 import { taskTypesOptions } from '../data/task-types.ts';
-import Text from './Fields/Text.vue';
 import type { Option } from '../types.ts';
 
 const model = defineModel({ default: '' });
@@ -73,8 +84,9 @@ const defaultOption = {
 
 const aiModel = useStorage<Option>('ai-model', defaultOption);
 const domain = useStorage<Option>('domain', defaultOption);
-const language = useStorage<Option>('language', defaultOption);
+const technology = useStorage<Option[]>('technology', []);
 const taskType = useStorage<Option>('task-type', defaultOption);
+const tools = useStorage<string[]>('tools', []);
 const additionalRequirements = useStorage<string>(
   'additional-requirements',
   '',
@@ -82,8 +94,21 @@ const additionalRequirements = useStorage<string>(
 const inputData = useStorage<string>('input-data', '');
 
 const techOptions = computed<Option[]>(
-  () => tech[domain.value.code as DomainType] ?? [],
+  () => technologies[domain.value.code as DomainType] ?? [],
 );
+const toolsOptions = computed<Option[]>(() => {
+  if (technology.value.length && taskType.value.code === 'unit-test') {
+    return technology.value
+      .map(item => item.tools!)
+      .flat()
+      .filter(
+        (item, index, self) =>
+          index === self.findIndex(selfItem => selfItem.code === item.code),
+      );
+  }
+
+  return [];
+});
 
 const roleStr = computed(() => {
   if (!aiModel.value.code) return '';
@@ -100,20 +125,20 @@ const domainStr = computed(() => {
 
   return `Сфера: ${domain.value.rules}\n`;
 });
-const techtr = computed(() => {
-  if (!language.value.code) return '';
+const techStr = computed(() => {
+  if (!technology.value.length) return '';
 
-  let data = `Язык: ${language.value.name}\n`;
-  data += `Правила кода: ${language.value.rules}\n`;
+  let data = `Технологии: ${technology.value.map(item => item.name).join(', ')}\n`;
+  data += `Правила кода: ${technology.value.map(item => item.rules).join(', ')}\n`;
 
   return data;
 });
 const contextStr = computed(() => {
-  if (!domainStr.value && !techtr.value) return '';
+  if (!domainStr.value && !techStr.value) return '';
 
   let data = `# CONTEXT\n`;
   data += domainStr.value;
-  data += techtr.value;
+  data += techStr.value;
 
   data += '\n';
 
@@ -123,6 +148,11 @@ const additionalRequirementsStr = computed(() => {
   if (!additionalRequirements.value) return '';
 
   return `Дополнительные требования по задаче: ${additionalRequirements.value}\n`;
+});
+const toolsStr = computed(() => {
+  if (!tools.value.length) return '';
+
+  return `Инструменты: ${tools.value.join(', ')}\n`;
 });
 const taskStr = computed(() => {
   if (!taskType.value.code && !additionalRequirementsStr.value) return '';
@@ -135,6 +165,7 @@ const taskStr = computed(() => {
     data += '\n';
   }
 
+  data += toolsStr.value;
   data += additionalRequirementsStr.value;
   data += '\n';
 
@@ -178,8 +209,9 @@ const prompt = computed(() => {
 function clearPrompt() {
   aiModel.value = defaultOption;
   domain.value = defaultOption;
-  language.value = defaultOption;
+  technology.value = [];
   taskType.value = defaultOption;
+  tools.value = [];
   additionalRequirements.value = '';
   inputData.value = '';
 }

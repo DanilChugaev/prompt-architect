@@ -11,7 +11,6 @@ export const devOptions: Option[] = [
       { code: 'jest', name: 'Jest', rules: '' },
       { code: 'mocha', name: 'Mocha + Chai', rules: '' },
       { code: 'vitest', name: 'Vitest', rules: '' },
-      { code: 'eslint', name: 'ESLint', rules: '' },
     ],
   },
   {
@@ -23,9 +22,8 @@ export const devOptions: Option[] = [
       - Предпочитай однофайловые компоненты (.vue).`,
     tools: [
       { code: 'vitest', name: 'Vitest', rules: '' },
-      { code: 'vue-test-utils', name: 'Vue Test Utils', rules: '' },
+      { code: '@vue/test-utils', name: 'Vue Test Utils', rules: '' },
       { code: 'cypress', name: 'Cypress', rules: '' },
-      { code: 'eslint-vue', name: 'eslint-plugin-vue', rules: '' },
       { code: 'vue-use', name: 'VueUse', rules: '' }, // todo: выделить в отдельный libs
     ],
   },
@@ -41,7 +39,6 @@ export const devOptions: Option[] = [
       { code: 'jest', name: 'Jest', rules: '' },
       { code: 'cypress', name: 'Cypress (E2E)', rules: '' },
       { code: 'playwright', name: 'Playwright', rules: '' },
-      { code: 'eslint-react', name: 'eslint-plugin-react', rules: '' },
     ],
   },
   {
@@ -55,8 +52,6 @@ export const devOptions: Option[] = [
       { code: 'pytest', name: 'pytest', rules: '' },
       { code: 'unittest', name: 'unittest', rules: '' },
       { code: 'mypy', name: 'Mypy (Static Type Check)', rules: '' },
-      { code: 'black', name: 'Black (Formatter)', rules: '' },
-      { code: 'flake8', name: 'Flake8 (Linter)', rules: '' },
     ],
   },
   {

@@ -2,16 +2,30 @@
   <div class="column">
     <Label :id :label />
 
-    <Select
+    <MultiSelect
+      v-if="multiple"
       v-model="model"
+      class="w-full"
+      filter-placeholder="Поиск"
+      option-label="name"
       :options
       :placeholder
-      filter
-      filter-placeholder="Поиск"
-      show-clear
-      optionLabel="name"
       :input-id="id"
+      filter
+      show-clear
+    />
+
+    <Select
+      v-else
+      v-model="model"
       class="w-full"
+      filter-placeholder="Поиск"
+      option-label="name"
+      :options
+      :placeholder
+      :input-id="id"
+      filter
+      show-clear
     />
 
     <span class="info">{{ description }}</span>
@@ -20,6 +34,7 @@
 
 <script setup lang="ts">
 import Select from 'primevue/select';
+import MultiSelect from 'primevue/multiselect';
 
 import Label from './Label.vue';
 import type { Option } from '../../types.ts';
@@ -32,5 +47,6 @@ defineProps<{
   options: Option[]; // todo добавить тип
   placeholder?: string;
   description?: string;
+  multiple?: boolean;
 }>();
 </script>
