@@ -37,8 +37,6 @@
       :options="toolsOptions"
     />
 
-    {{ tools }}
-
     <Text
       v-model="additionalRequirements"
       id="additionalRequirements"

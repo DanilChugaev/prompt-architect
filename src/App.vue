@@ -1,6 +1,6 @@
 <template>
   <h1 class="row justify-center">
-    <img src="/hammer.svg" alt="hammer icon" />
+    <img class="img" src="/hammer.svg" alt="hammer icon" />
     <span>Prompt Architect</span>
   </h1>
 
@@ -43,5 +43,10 @@ const prompt = ref('');
   background-color: #252526;
   padding: 20px;
   border-radius: 8px;
+
+  @media (max-width: 899px) {
+    flex-direction: column;
+    padding: 10px;
+  }
 }
 </style>
