@@ -1,24 +1,24 @@
 <template>
   <div class="column">
-    <Label v-if="label" :id :label  />
+    <Label v-if="label" :id :label />
 
     <InputText
-        v-if="type === 'text'"
-        v-model="model"
-        :id="id"
-        :placeholder
-        :type
+      v-if="type === 'text'"
+      v-model="model"
+      :id="id"
+      :placeholder
+      :type
     />
 
     <Textarea
-        v-else
-        v-model="model as string"
-        :id="id"
-        :placeholder
-        :auto-resize="true"
+      v-else
+      v-model="model as string"
+      :id="id"
+      :placeholder
+      :auto-resize="true"
     />
 
-    <span v-if="description" class="info">{{description}}</span>
+    <span v-if="description" class="info">{{ description }}</span>
   </div>
 </template>
 
@@ -40,6 +40,6 @@ withDefaults(
   }>(),
   {
     type: 'text',
-  }
+  },
 );
 </script>

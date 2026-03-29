@@ -3,18 +3,18 @@
     <Label :id :label />
 
     <Select
-        v-model="model"
-        :options
-        :placeholder
-        filter
-        filter-placeholder="Поиск"
-        show-clear
-        optionLabel="name"
-        :input-id="id"
-        class="w-full"
+      v-model="model"
+      :options
+      :placeholder
+      filter
+      filter-placeholder="Поиск"
+      show-clear
+      optionLabel="name"
+      :input-id="id"
+      class="w-full"
     />
 
-    <span class="info">{{description}}</span>
+    <span class="info">{{ description }}</span>
   </div>
 </template>
 
@@ -33,9 +33,3 @@ defineProps<{
   description?: string;
 }>();
 </script>
-
-<style>
-.p-tree-node-toggle-button {
-  display: none !important;
-}
-</style>

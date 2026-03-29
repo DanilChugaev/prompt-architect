@@ -2,11 +2,11 @@ export const domainsOptions: any[] = [
   {
     code: 'dev',
     name: 'Программирование',
-    rules: 'Software Development'
+    rules: 'Software Development',
   },
   {
     code: 'ops',
     name: 'Администрирование',
-    rules: 'DevOps & Infrastructure'
+    rules: 'DevOps & Infrastructure',
   },
 ];

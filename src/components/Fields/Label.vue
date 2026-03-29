@@ -1,8 +1,5 @@
 <template>
-  <label
-      :for="id"
-      class="label"
-  >
+  <label :for="id" class="label">
     {{ label }}
   </label>
 </template>
