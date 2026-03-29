@@ -1,6 +1,8 @@
 import type { Option } from '../types.ts';
 
-export const domainsOptions: Option[] = [
+export type DomainType = 'dev' | 'ops';
+
+export const domainsOptions: Option<DomainType>[] = [
   {
     code: 'dev',
     name: 'Программирование',

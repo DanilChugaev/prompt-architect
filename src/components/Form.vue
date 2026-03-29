@@ -57,7 +57,7 @@ import Button from 'primevue/button';
 import Select from './Fields/Select.vue';
 
 import { aiModelsOptions } from '../data/ai-models.ts';
-import { domainsOptions } from '../data/domains.ts';
+import { domainsOptions, type DomainType } from '../data/domains.ts';
 import { languages } from '../data/languages';
 import { taskTypesOptions } from '../data/task-types.ts';
 import Text from './Fields/Text.vue';
@@ -82,7 +82,7 @@ const additionalRequirements = useStorage<string>(
 const inputData = useStorage<string>('input-data', '');
 
 const languagesOptions = computed<Option[]>(
-  () => languages[domain.value.code] ?? [],
+  () => languages[domain.value.code as DomainType] ?? [],
 );
 
 const roleStr = computed(() => {

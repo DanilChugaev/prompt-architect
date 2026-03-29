@@ -1,8 +1,9 @@
 import { opsOptions } from './ops-options.ts';
 import { devOptions } from './dev-options.ts';
 import type { Option } from '../../types.ts';
+import type { DomainType } from '../domains.ts';
 
-export const languages: Record<string, Option[]> = {
+export const languages: Record<DomainType, Option[]> = {
   dev: devOptions,
   ops: opsOptions,
 };
