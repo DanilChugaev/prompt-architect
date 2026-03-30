@@ -1,7 +1,8 @@
 import type { Option } from '../../types.ts';
 
 export const devOptions: Option[] = [
-  // todo: добавить взаимоисключение, например, выбран js - снимаем ts и наоборот
+  // todo: incompatibleWith добавить взаимоисключение, например, выбран js - снимаем ts и наоборот
+  // todo: если выбрано vue и ts например, добавлять доп правило (используй lang="ts" у тега script) и также для других
   {
     code: 'js',
     name: 'JavaScript (Vanilla/Node)',
@@ -82,6 +83,22 @@ export const devOptions: Option[] = [
       { code: 'gomock', name: 'GoMock', rules: '' },
       { code: 'golangci', name: 'golangci-lint', rules: '' },
       { code: 'gin', name: 'Gin Web Framework', rules: '' },
+    ],
+  },
+  {
+    code: 'java',
+    name: 'Java (17+ / Spring Boot)',
+    rules: `
+      - Используй Java 17+ (records, sealed classes, pattern matching).
+      - Следуй принципам Clean Architecture и SOLID.
+      - Для backend — Spring Boot 3.x.
+      - Обязательно обрабатывай исключения, логирование и валидацию.`,
+    tools: [
+      { code: 'junit5', name: 'JUnit 5', rules: '' },
+      { code: 'mockito', name: 'Mockito', rules: '' },
+      { code: 'maven', name: 'Maven', rules: '' },
+      { code: 'gradle', name: 'Gradle', rules: '' },
+      { code: 'spring-test', name: 'Spring Boot Test', rules: '' },
     ],
   },
 ];

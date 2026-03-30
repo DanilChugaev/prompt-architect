@@ -24,9 +24,18 @@ export const opsOptions: Option[] = [
   },
   {
     code: 'sql',
-    name: 'SQL',
-    rules:
-      'Оптимизируй запросы (используй EXPLAIN). Избегай SQL-инъекций (используй плейсхолдеры).',
-    tools: [{ code: 'sqlfluff', name: 'SQLFluff', rules: '' }],
+    name: 'SQL (PostgreSQL / MySQL)',
+    rules: `
+      - Всегда оптимизируй запросы через EXPLAIN / ANALYZE.
+      - Используй parameterized queries / prepared statements (защита от SQL-инъекций).
+      - PostgreSQL: активно используй CTE, оконные функции, JSONB.
+      - MySQL: учитывай индексы, покрывающие индексы и JOIN-стратегии.
+      - Пиши читаемый SQL с комментариями и именованными подзапросами.`,
+    tools: [
+      { code: 'sqlfluff', name: 'SQLFluff (linter + formatter)', rules: '' },
+      { code: 'pgformatter', name: 'pgFormatter (PostgreSQL)', rules: '' },
+      { code: 'flyway', name: 'Flyway / Liquibase (миграции)', rules: '' },
+      { code: 'dbdiagram', name: 'dbdiagram.io / ERD', rules: '' },
+    ],
   },
 ];

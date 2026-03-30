@@ -24,19 +24,30 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useClipboard } from '@vueuse/core';
 import Toast from 'primevue/toast';
 import Button from 'primevue/button';
 
 import Form from './components/Form.vue';
 import Text from './components/Fields/Text.vue';
-import { ref } from 'vue';
 
 const { copy } = useClipboard(); // todo после копирования добавить нотифай что успешно скопировал
 
 const prompt = ref('');
 // todo добавить ночную и светлые темы
 // todo переработать отступы
+// todo показывать количество токенов созданного промпта
+// todo сохранить пресет или поделиться ссылкой (query-параметры)
+// todo У каждой технологии расписать тулзы по типам задач
+// Например
+// Тестирование свой массив тулзов
+// Аудит безопасности свой массив
+// И так далее
+// todo Также тип задач должен зависеть от выбранной сферы деятельности
+// todo Добавить выбор роли независимо от выбора модели
+// todo Добавить иконки моделей
+// todo Добавить иконки для кнопок
 </script>
 
 <style lang="postcss">

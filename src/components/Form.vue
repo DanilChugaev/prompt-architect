@@ -149,7 +149,7 @@ const additionalRequirementsStr = computed(() => {
 });
 const toolsStr = computed(() => {
   if (!tools.value.length) return '';
-
+  // todo очищать, если сменили тип задачи
   return `Инструменты: ${tools.value.join(', ')}\n`;
 });
 const taskStr = computed(() => {
