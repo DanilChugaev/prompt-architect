@@ -1,6 +1,6 @@
 import type { Option } from '../../types.ts';
 
-export const devOptions: Option[] = [
+export const devTechOptions: Option[] = [
   // todo: incompatibleWith добавить взаимоисключение, например, выбран js - снимаем ts и наоборот
   // todo: если выбрано vue и ts например, добавлять доп правило (используй lang="ts" у тега script) и также для других
   {

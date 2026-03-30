@@ -1,6 +1,6 @@
 import type { Option } from '../../types.ts';
 
-export const dataOptions: Option[] = [
+export const dataTechOptions: Option[] = [
   {
     code: 'pandas',
     name: 'Pandas (Python Data Analysis)',

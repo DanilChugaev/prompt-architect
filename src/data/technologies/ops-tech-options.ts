@@ -1,6 +1,6 @@
 import type { Option } from '../../types.ts';
 
-export const opsOptions: Option[] = [
+export const opsTechOptions: Option[] = [
   {
     code: 'bash',
     name: 'Bash',

@@ -1,6 +1,6 @@
 import type { Option } from '../../types.ts';
 
-export const aiOptions: Option[] = [
+export const aiTechOptions: Option[] = [
   {
     code: 'langchain',
     name: 'LangChain / LangGraph',

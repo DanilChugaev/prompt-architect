@@ -67,21 +67,21 @@ import Text from './Fields/Text.vue';
 import Checkboxes from './Fields/Checkboxes.vue';
 
 import { aiModelsOptions } from '../data/ai-models.ts';
-import { domainsOptions, type DomainType } from '../data/domains.ts';
-import { technologies } from '../data/technologies/index.ts';
-import { taskTypesOptions } from '../data/task-types.ts';
+import { domainsOptions, type Domain } from '../data/domains.ts';
+import { technologies } from '../data/technologies';
+import { taskTypes } from '../data/task-types';
 import type { Option } from '../types.ts';
 
 const model = defineModel({ default: '' });
 
-const defaultOption = {
+const defaultOption: Option<any> = {
   code: '',
   name: '',
   rules: '',
 };
 
 const aiModel = useStorage<Option>('ai-model', defaultOption);
-const domain = useStorage<Option>('domain', defaultOption);
+const domain = useStorage<Option<Domain>>('domain', defaultOption);
 const technology = useStorage<Option[]>('technology', []);
 const taskType = useStorage<Option>('task-type', defaultOption);
 const tools = useStorage<string[]>('tools', []);
@@ -92,10 +92,10 @@ const additionalRequirements = useStorage<string>(
 const inputData = useStorage<string>('input-data', '');
 
 const techOptions = computed<Option[]>(
-  () => technologies[domain.value.code as DomainType] ?? [],
+  () => technologies[domain.value.code as Domain] ?? [],
 );
 const toolsOptions = computed<Option[]>(() => {
-  if (technology.value.length && taskType.value.code === 'unit-test') {
+  if (technology.value.length && taskType.value.code) {
     return technology.value
       .map(item => item.tools!)
       .flat()
@@ -103,6 +103,13 @@ const toolsOptions = computed<Option[]>(() => {
         (item, index, self) =>
           index === self.findIndex(selfItem => selfItem.code === item.code),
       );
+  }
+
+  return [];
+});
+const taskTypesOptions = computed<Option[]>(() => {
+  if (domain.value.code) {
+    return taskTypes[domain.value.code];
   }
 
   return [];
@@ -127,7 +134,8 @@ const techStr = computed(() => {
   if (!technology.value.length) return '';
 
   let data = `Технологии: ${technology.value.map(item => item.name).join(', ')}\n`;
-  data += `Правила кода: ${technology.value.map(item => item.rules).join(', ')}\n`;
+  // todo: для каждой технологии подставлять правила чего (кода, текста и так далее)
+  data += `Правила: ${technology.value.map(item => item.rules).join(', ')}\n`;
 
   return data;
 });
