@@ -1,6 +1,8 @@
 import type { Option } from '../../types.ts';
 
-export const dataTechOptions: Option[] = [
+export type DataTech = 'pandas' | 'pyspark' | 'dbt' | 'airflow';
+
+export const dataTechOptions: Option<DataTech>[] = [
   {
     code: 'pandas',
     name: 'Pandas (Python Data Analysis)',

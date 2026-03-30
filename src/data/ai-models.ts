@@ -1,7 +1,21 @@
 import type { Option } from '../types.ts';
 
+export type AiModel =
+  | 'nemotron-cascade-2'
+  | 'llama3'
+  | 'llama3.1'
+  | 'qwen'
+  | 'qwen2.5-coder'
+  | 'gemma2'
+  | 'phi3.5'
+  | 'deepseek-coder'
+  | 'mistral'
+  | 'mistral-nemo'
+  | 'codestral'
+  | 'grok';
+
 // todo добавить больше моделей
-export const aiModelsOptions: Option[] = [
+export const aiModelsOptions: Option<AiModel>[] = [
   {
     code: 'nemotron-cascade-2',
     name: 'Nemotron Cascade 2 (NVIDIA / Ollama)',

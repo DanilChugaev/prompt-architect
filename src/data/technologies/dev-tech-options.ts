@@ -1,6 +1,8 @@
 import type { Option } from '../../types.ts';
 
-export const devTechOptions: Option[] = [
+export type DevTech = 'js' | 'ts' | 'vue' | 'react' | 'python' | 'go' | 'java';
+
+export const devTechOptions: Option<DevTech>[] = [
   // todo: incompatibleWith добавить взаимоисключение, например, выбран js - снимаем ts и наоборот
   // todo: если выбрано vue и ts например, добавлять доп правило (используй lang="ts" у тега script) и также для других
   {

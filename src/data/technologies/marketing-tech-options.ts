@@ -1,6 +1,16 @@
 import type { Option } from '../../types.ts';
 
-export const marketingTechOptions: Option[] = [
+export type MarketingTech =
+  | 'seo'
+  | 'smm'
+  | 'content'
+  | 'email'
+  | 'ppc'
+  | 'analytics'
+  | 'crm'
+  | 'copywriting';
+
+export const marketingTechOptions: Option<MarketingTech>[] = [
   {
     code: 'seo',
     name: 'SEO (поисковая оптимизация)',

@@ -1,6 +1,8 @@
 import type { Option } from '../../types.ts';
 
-export const docsTechOptions: Option[] = [
+export type DocsTech = 'markdown' | 'mkdocs' | 'openapi' | 'sphinx';
+
+export const docsTechOptions: Option<DocsTech>[] = [
   {
     code: 'markdown',
     name: 'Markdown + GitHub Flavored',

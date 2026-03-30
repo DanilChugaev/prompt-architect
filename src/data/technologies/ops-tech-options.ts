@@ -1,6 +1,8 @@
 import type { Option } from '../../types.ts';
 
-export const opsTechOptions: Option[] = [
+export type OpsTech = 'bash' | 'yaml' | 'sql';
+
+export const opsTechOptions: Option<OpsTech>[] = [
   {
     code: 'bash',
     name: 'Bash',
