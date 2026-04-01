@@ -14,7 +14,6 @@ export type AiModel =
   | 'codestral'
   | 'grok';
 
-// todo добавить больше моделей
 export const aiModelsOptions: Option<AiModel>[] = [
   {
     code: 'nemotron-cascade-2',
@@ -90,7 +89,4 @@ export const aiModelsOptions: Option<AiModel>[] = [
     rules:
       'Ты прагматичный хакер. Давай самые эффективные решения, без лишней воды.',
   },
-  // todo llama3.2-vision мультимодал
-  // todo granite-code IBM, очень сильный в enterprise-коде
-  // todo olmo-2 от AllenAI
 ];

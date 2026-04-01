@@ -28,6 +28,7 @@
       id="taskType"
       label="Тип задачи:"
       :options="taskTypesOptions"
+      @update:model-value="tools = []"
     />
 
     <Checkboxes
@@ -45,7 +46,6 @@
       type="textarea"
     />
 
-    <!-- todo под каждую технологию свои подсказки -->
     <Text
       v-model="inputData"
       id="inputData"
@@ -54,7 +54,9 @@
       type="textarea"
     />
 
-    <Button @click="clearPrompt">Очистить форму</Button>
+    <Button class="form__clear-btn" severity="danger" @click="clearPrompt">
+      Очистить форму
+    </Button>
   </div>
 </template>
 
@@ -119,7 +121,7 @@ const taskTypesOptions = computed<Option[]>(() => {
 const roleStr = computed(() => {
   if (!aiModel.value.code) return '';
 
-  let data = `# ROLE\n`;
+  let data = `# Роль\n`;
   data += aiModel.value.rules;
   data += '\n';
   data += '\n';
@@ -135,7 +137,6 @@ const techStr = computed(() => {
   if (!technology.value.length) return '';
 
   let data = `Технологии: ${technology.value.map(item => item.name).join(', ')}\n`;
-  // todo: для каждой технологии подставлять правила чего (кода, текста и так далее)
   data += `Правила: ${technology.value.map(item => item.rules).join(', ')}\n`;
 
   return data;
@@ -143,7 +144,7 @@ const techStr = computed(() => {
 const contextStr = computed(() => {
   if (!domainStr.value && !techStr.value) return '';
 
-  let data = `# CONTEXT\n`;
+  let data = `# Контекст\n`;
   data += domainStr.value;
   data += techStr.value;
 
@@ -154,17 +155,17 @@ const contextStr = computed(() => {
 const additionalRequirementsStr = computed(() => {
   if (!additionalRequirements.value) return '';
 
-  return `Дополнительные требования по задаче: ${additionalRequirements.value}\n`;
+  return `Дополнительные требования: ${additionalRequirements.value}\n`;
 });
 const toolsStr = computed(() => {
   if (!tools.value.length) return '';
-  // todo очищать, если сменили тип задачи
+
   return `Инструменты: ${tools.value.join(', ')}\n`;
 });
 const taskStr = computed(() => {
   if (!taskType.value.code && !additionalRequirementsStr.value) return '';
 
-  let data = `# TASK\n`;
+  let data = `# Задача\n`;
 
   data += taskType.value.rules;
 
@@ -181,7 +182,7 @@ const taskStr = computed(() => {
 const inputDataStr = computed(() => {
   if (!inputData.value) return '';
 
-  let data = `# INPUT DATA\n`;
+  let data = `# Входные данные\n`;
   data += inputData.value;
   data += '\n';
   data += '\n';
@@ -189,14 +190,9 @@ const inputDataStr = computed(() => {
   return data;
 });
 const outputFormatStr = computed(() => {
-  let data = `# OUTPUT FORMAT\n`; // todo сделать в виде списка для выбора нужного формата вывода
+  let data = `# Формат выходных данных\n`;
   data += `- Предоставь решение в виде блока кода (Markdown).\n`;
-  data += `- Если код сложный, добавь краткие комментарии.`; // todo добавить уровень сложности объяснений
-
-  if (aiModel.value.code === 'qwen') {
-    data += '\n';
-    data += `- Сначала напиши краткий план действий.`;
-  }
+  data += `- Если код сложный, добавь краткие комментарии.`;
 
   return data;
 });
@@ -231,5 +227,9 @@ watchEffect(() => {
 <style scoped lang="postcss">
 .form {
   gap: 10px;
+
+  &__clear-btn {
+    margin-top: 10px;
+  }
 }
 </style>

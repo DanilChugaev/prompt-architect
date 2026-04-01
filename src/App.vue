@@ -1,8 +1,5 @@
 <template>
-  <h1 class="row justify-center">
-    <img class="img" src="/hammer.svg" alt="hammer icon" />
-    <span>Prompt Architect</span>
-  </h1>
+  <Header />
 
   <div class="container row">
     <Form v-model="prompt" class="flex-1" />
@@ -11,43 +8,53 @@
       <Text
         v-model="prompt"
         id="prompt"
-        label="Итоговый промпт"
         description="Его можно доработать и скопировать"
         type="textarea"
+        :label
       />
 
-      <Button @click="copy(prompt)">Скопировать</Button>
+      <Button class="container__copy-btn" @click="copyPrompt">
+        Скопировать
+      </Button>
     </div>
   </div>
+
+  <Footer />
 
   <Toast position="top-center" />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useClipboard } from '@vueuse/core';
 import Toast from 'primevue/toast';
 import Button from 'primevue/button';
 
 import Form from './components/Form.vue';
 import Text from './components/Fields/Text.vue';
+import { useNotifications } from './composables/useNotification.ts';
+import Footer from './components/Footer.vue';
+import Header from './components/Header.vue';
 
-const { copy } = useClipboard(); // todo после копирования добавить нотифай что успешно скопировал
+const { copy } = useClipboard();
+const { successNotify, errorNotify } = useNotifications();
 
 const prompt = ref('');
-// todo добавить ночную и светлые темы
-// todo переработать отступы
-// todo показывать количество токенов созданного промпта
-// todo сохранить пресет или поделиться ссылкой (query-параметры)
-// todo У каждой технологии расписать тулзы по типам задач
-// Например
-// Тестирование свой массив тулзов
-// Аудит безопасности свой массив
-// И так далее
-// todo Также тип задач должен зависеть от выбранной сферы деятельности
-// todo Добавить выбор роли независимо от выбора модели
-// todo Добавить иконки моделей
-// todo Добавить иконки для кнопок
+
+const label = computed(() => {
+  return `Итоговый промпт${prompt.value.length ? ` (~${Math.round(prompt.value.length / 3)} токенов)` : ''}`;
+});
+
+async function copyPrompt() {
+  try {
+    await copy(prompt.value);
+
+    successNotify('Промпт скопирован!');
+  } catch (error: any) {
+    console.error(error);
+    errorNotify('Ошибка копирования!');
+  }
+}
 </script>
 
 <style lang="postcss">
@@ -56,6 +63,10 @@ const prompt = ref('');
   background-color: #252526;
   padding: 20px;
   border-radius: 8px;
+
+  &__copy-btn {
+    margin-top: 10px;
+  }
 
   @media (max-width: 899px) {
     flex-direction: column;

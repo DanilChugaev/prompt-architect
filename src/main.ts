@@ -5,6 +5,7 @@ import Aura from '@primeuix/themes/aura';
 import ToastService from 'primevue/toastservice';
 import './styles/main.pcss';
 import './styles/classes.pcss';
+import './styles/primevue.pcss';
 
 const app = createApp(App);
 

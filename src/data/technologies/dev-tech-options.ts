@@ -3,8 +3,6 @@ import type { Option } from '../../types.ts';
 export type DevTech = 'js' | 'ts' | 'vue' | 'react' | 'python' | 'go' | 'java';
 
 export const devTechOptions: Option<DevTech>[] = [
-  // todo: incompatibleWith добавить взаимоисключение, например, выбран js - снимаем ts и наоборот
-  // todo: если выбрано vue и ts например, добавлять доп правило (используй lang="ts" у тега script) и также для других
   {
     code: 'js',
     name: 'JavaScript (Vanilla/Node)',
@@ -42,7 +40,7 @@ export const devTechOptions: Option<DevTech>[] = [
       { code: 'vitest', name: 'Vitest', rules: '' },
       { code: '@vue/test-utils', name: 'Vue Test Utils', rules: '' },
       { code: 'cypress', name: 'Cypress', rules: '' },
-      { code: 'vue-use', name: 'VueUse', rules: '' }, // todo: выделить в отдельный libs
+      { code: 'vue-use', name: 'VueUse', rules: '' },
     ],
   },
   {
