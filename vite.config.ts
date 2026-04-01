@@ -13,8 +13,8 @@ export default defineConfig({
         name: '️Prompt Architect',
         short_name: 'Prompt Architect',
         description: 'Creating a prompt for your task',
-        display: 'fullscreen',
-        theme_color: '#f8fafc',
+        display: 'standalone',
+        theme_color: '#1e1e1e',
         icons: [
           {
             src: 'hammer-192x192.png',
