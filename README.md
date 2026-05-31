@@ -1,4 +1,4 @@
-# 🏗️ Prompt Architect
+# Prompt Architect
 
 Интерактивный веб-редактор для генерации структурированных промптов к AI-моделям (Ollama, Cloud и др.).
 
