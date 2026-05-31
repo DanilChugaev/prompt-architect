@@ -5,7 +5,7 @@ type NotifyMessage = string;
 
 export function useNotifications() {
   const toast = useToast();
-  const life = 30000;
+  const life = 3000;
 
   const notify = (type: NotifyType, message: NotifyMessage) => {
     toast.add({
